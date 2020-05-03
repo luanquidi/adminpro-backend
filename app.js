@@ -1,21 +1,26 @@
 // Requerimientos
 const express = require('express');
 
+// Routes
+const appRoutes = require('./routes/app');
+const usuarioRoutes = require('./routes/usuario');
+const loginRoutes = require('./routes/login');
+
 // Base de datos
 require('./database');
 
 // Inicializar variables
 const app = express();
 
+//Middleware
+app.use(express.json());
+
 // Rutas
-app.get('/', (req, res) => {
 
-    res.status(200).json({
-        ok: true,
-        mensaje: 'Petición realizada'
-    });
+app.use('/usuario', usuarioRoutes);
+app.use('/login', loginRoutes);
+app.use('/', appRoutes);
 
-});
 
 // Escuchar peticiones
 app.listen(3000, () => {
